@@ -1,12 +1,18 @@
 package com.vdt2025.vdt2025_product_management.service.file;
 
+import com.vdt2025.vdt2025_product_management.exception.AppException;
+import com.vdt2025.vdt2025_product_management.exception.ErrorCode;
 import com.vdt2025.vdt2025_product_management.repository.UploadedFileRepository;
 import com.vdt2025.vdt2025_product_management.repository.UserRepository;
+import org.springframework.core.io.Resource;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.UrlResource;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,6 +32,7 @@ public class FileStorageService {
     UploadedFileRepository uploadedFileRepository;
     FileStorageProperties fileStorageProperties;
 
+    // Lưu trữ File
     public String storeFile(MultipartFile file) {
         try {
             String directory = fileStorageProperties.getDirectory();
@@ -40,8 +47,33 @@ public class FileStorageService {
             Path targetLocation = dir.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             log.info("File stored successfully: {}", fileName);
+            return fileName;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new AppException(ErrorCode.FILE_CANNOT_STORED);
         }
     }
+
+    // Tải file
+    public Resource loadFile(String fileName) {
+        try {
+            String directory = fileStorageProperties.getDirectory();
+            Path filePath = Paths.get(directory).toAbsolutePath().normalize().resolve(fileName);
+            Resource resource = new UrlResource(filePath.toUri());
+            if (resource.exists() || resource.isReadable()) {
+                return resource;
+            } else {
+                throw new AppException(ErrorCode.FILE_NOT_FOUND);
+            }
+        } catch (Exception e) {
+            throw new AppException(ErrorCode.FILE_NOT_FOUND);
+        }
+    }
+
+    // Xóa file
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
+    public void deleteFile(String fileName) {
+
+    }
+
 }

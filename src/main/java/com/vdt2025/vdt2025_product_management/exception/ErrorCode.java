@@ -10,7 +10,7 @@ public enum ErrorCode {
     UNAUTHORIZED(1101, "You do not have permission", HttpStatus.FORBIDDEN),
     // Lỗi File (13xx)
     FILE_CANNOT_STORED(1301, "File cannot be stored", HttpStatus.INTERNAL_SERVER_ERROR),
-
+    FILE_NOT_FOUND(1302, "File cannot be found", HttpStatus.NOT_FOUND),
 
     // Lỗi khác (99xx)
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error", HttpStatus.INTERNAL_SERVER_ERROR),
