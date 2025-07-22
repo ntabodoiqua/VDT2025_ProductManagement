@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  # K?t n?i ??n c? s? d? li?u PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product_management
+    username: postgres
+    password: admin
+  # C?u hình JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  # C?u hình file upload
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+# C?u hình JWT
+jwt:
+  signerKey: cnf61zcey4yE0RfDwk3yOAgi+CRVsjb1LPQP0O9e0GyLworFq8IthDFERD/0bxy2
+  valid-duration: 3600
+  refreshable-duration: 86400
