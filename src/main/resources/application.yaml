@@ -24,3 +24,7 @@ jwt:
   signerKey: cnf61zcey4yE0RfDwk3yOAgi+CRVsjb1LPQP0O9e0GyLworFq8IthDFERD/0bxy2
   valid-duration: 3600
   refreshable-duration: 86400
+
+file:
+  directory: ./uploads/
+  max-size: 10MB

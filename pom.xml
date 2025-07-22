@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vdt2025</groupId>
-	<artifactId>vdt2025_project_management</artifactId>
+	<artifactId>vdt2025_product_management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vdt2025_project_management</name>
 	<description>Project Management with Spring Boot 3</description>
