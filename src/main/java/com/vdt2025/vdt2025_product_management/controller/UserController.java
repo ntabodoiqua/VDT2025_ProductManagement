@@ -1,19 +1,18 @@
 package com.vdt2025.vdt2025_product_management.controller;
 
 import com.vdt2025.vdt2025_product_management.dto.ApiResponse;
+import com.vdt2025.vdt2025_product_management.dto.request.user.UserChangePasswordRequest;
 import com.vdt2025.vdt2025_product_management.dto.request.user.UserCreationRequest;
+import com.vdt2025.vdt2025_product_management.dto.request.user.UserUpdateRequest;
 import com.vdt2025.vdt2025_product_management.dto.response.UserResponse;
-import com.vdt2025.vdt2025_product_management.service.UserService;
 import com.vdt2025.vdt2025_product_management.service.UserServiceImp;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/users")
@@ -27,6 +26,50 @@ public class UserController {
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
+                .build();
+    }
+
+    @GetMapping("/myInfo")
+    ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getMyInfo())
+                .build();
+    }
+
+    @PutMapping("/changePassword")
+    ApiResponse<String> changeMyPassword(@RequestBody @Valid UserChangePasswordRequest request) {
+        var result = userService.changeMyPassword(request.getOldPassword(), request.getNewPassword());
+        return ApiResponse.<String>builder()
+                .result(result)
+                .build();
+    }
+
+    // Controller người dùng cập nhật avatar
+    @PostMapping("/avatar")
+    public ApiResponse<String> setAvatar(@RequestParam("file") MultipartFile file) {
+        var result = userService.setMyAvatar(file);
+        return ApiResponse.<String>builder()
+                .message("Avatar updated successfully")
+                .result(result)
+                .build();
+    }
+
+    // Controller người dùng cập nhật thông tin cá nhân
+    @PutMapping("/myInfo")
+    public ApiResponse<UserResponse> updateMyInfo(@RequestBody @Valid UserUpdateRequest request) {
+        var result = userService.updateMyInfo(request);
+        return ApiResponse.<UserResponse>builder()
+                .result(result)
+                .build();
+    }
+
+    // Controller người dùng vô hiệu hóa tài khoản
+    @PutMapping("/disable")
+    public ApiResponse<String> disableMyAccount() {
+        var result = userService.disableMyAccount();
+        return ApiResponse.<String>builder()
+                .message("Account disabled successfully")
+                .result(result)
                 .build();
     }
 

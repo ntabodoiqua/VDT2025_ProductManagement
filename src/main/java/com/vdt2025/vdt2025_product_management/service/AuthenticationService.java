@@ -91,7 +91,7 @@ public class AuthenticationService {
                 : signedJWT.getJWTClaimsSet().getExpirationTime();
         var verified = signedJWT.verify(verifier);
         // Kiểm tra xem token có hợp lệ không
-        if (!verified || expiryTime.after(new Date()))
+        if (!verified || expiryTime.before(new Date()))
             throw new AppException(ErrorCode.UNAUTHENTICATED);
         // Kiểm tra xem token có bị thu hồi không
         if (invalidatedTokenRepository.existsById(signedJWT.getJWTClaimsSet().getJWTID()))

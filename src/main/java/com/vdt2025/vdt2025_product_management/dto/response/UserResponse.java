@@ -20,6 +20,7 @@ public class UserResponse {
     String phone;
     String email;
     String avatarName;
+    boolean enabled;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
     RoleResponse role;

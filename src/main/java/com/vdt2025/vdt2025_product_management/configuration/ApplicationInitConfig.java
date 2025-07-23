@@ -1,5 +1,6 @@
 package com.vdt2025.vdt2025_product_management.configuration;
 
+import com.vdt2025.vdt2025_product_management.constant.PredefinedRole;
 import com.vdt2025.vdt2025_product_management.entity.Role;
 import com.vdt2025.vdt2025_product_management.entity.User;
 import com.vdt2025.vdt2025_product_management.repository.RoleRepository;

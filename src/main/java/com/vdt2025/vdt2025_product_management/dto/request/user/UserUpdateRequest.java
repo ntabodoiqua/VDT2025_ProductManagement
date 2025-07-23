@@ -1,5 +1,6 @@
 package com.vdt2025.vdt2025_product_management.dto.request.user;
 
+import com.vdt2025.vdt2025_product_management.entity.Role;
 import com.vdt2025.vdt2025_product_management.validator.DobConstrain;
 import lombok.*;
 import lombok.experimental.FieldDefaults;

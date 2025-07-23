@@ -17,8 +17,6 @@ public interface UserService {
 
     UserResponse updateMyInfo(UserUpdateRequest request);
 
-    String deleteMyAccount();
-
     String disableMyAccount();
 
 }
