@@ -8,6 +8,11 @@ import org.springframework.http.HttpStatusCode;
 public enum ErrorCode {
     // Lỗi xác thực (11xx)
     UNAUTHORIZED(1101, "You do not have permission", HttpStatus.FORBIDDEN),
+    UNAUTHENTICATED(1102, "You are not authenticated", HttpStatus.UNAUTHORIZED),
+
+    // Lỗi người dùng (12xx)
+    USER_NOT_FOUND(1201, "User not found", HttpStatus.NOT_FOUND),
+    USER_DISABLED(1202, "User is disabled", HttpStatus.FORBIDDEN),
     // Lỗi File (13xx)
     FILE_CANNOT_STORED(1301, "File cannot be stored", HttpStatus.INTERNAL_SERVER_ERROR),
     FILE_NOT_FOUND(1302, "File cannot be found", HttpStatus.NOT_FOUND),

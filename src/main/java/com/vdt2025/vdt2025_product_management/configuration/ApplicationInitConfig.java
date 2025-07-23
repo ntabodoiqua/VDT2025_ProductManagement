@@ -1,6 +1,7 @@
 package com.vdt2025.vdt2025_product_management.configuration;
 
 import com.vdt2025.vdt2025_product_management.entity.Role;
+import com.vdt2025.vdt2025_product_management.entity.User;
 import com.vdt2025.vdt2025_product_management.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,17 @@ public class ApplicationInitConfig {
     ApplicationRunner applicationRunner(UserRepository userRepository) {
         return args -> {
             if (userRepository.findByUsername("admin").isEmpty()){
-                Role
+                Role adminRole = new Role();
+                adminRole.setName("ADMIN");
+                adminRole.setDescription("Administrator role with full access");
+                User user = User.builder()
+                        .username("admin")
+                        .password(passwordEncoder.encode("admin"))
+                        .role(adminRole)
+                        .build();
+                userRepository.save(user);
+                log.warn("Admin user has been created with default password: admin, please change it");
             }
-        }
+        };
     }
 }
