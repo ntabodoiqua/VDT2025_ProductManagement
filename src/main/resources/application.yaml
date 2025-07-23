@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /api
+    context-path: /vdt
 
 spring:
   # PosgreSQL Database Configuration
@@ -28,3 +28,4 @@ jwt:
 file:
   directory: ./uploads/
   max-size: 10MB
+
