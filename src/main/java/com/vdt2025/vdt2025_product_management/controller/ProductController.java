@@ -1,5 +1,6 @@
 package com.vdt2025.vdt2025_product_management.controller;
 
+import com.vdt2025.vdt2025_product_management.dto.ApiResponse;
 import com.vdt2025.vdt2025_product_management.dto.request.product.ProductCreationRequest;
 import com.vdt2025.vdt2025_product_management.dto.request.product.ProductFilterRequest;
 import com.vdt2025.vdt2025_product_management.dto.request.product.ProductUpdateRequest;
@@ -24,49 +25,69 @@ public class ProductController {
 
     // Thêm sản phẩm mới
     @PostMapping
-    public ProductResponse createProduct(@RequestBody ProductCreationRequest request) {
+    public ApiResponse<ProductResponse> createProduct(@RequestBody ProductCreationRequest request) {
         log.info("Creating new product: {}", request.getName());
-        return productService.createProduct(request);
+        ProductResponse productResponse = productService.createProduct(request);
+        return ApiResponse.<ProductResponse>builder()
+                .result(productResponse)
+                .build();
     }
 
     // Cập nhật thumbnail sản phẩm
     @PostMapping("/{productId}/thumbnail")
-    public String updateProductThumbnail(
+    public ApiResponse<String> updateProductThumbnail(
             @PathVariable String productId,
             @RequestParam("file") MultipartFile file) {
         log.info("Updating thumbnail for product ID: {}", productId);
-        return productService.setProductThumbnail(productId, file);
+        String result = productService.setProductThumbnail(productId, file);
+        return ApiResponse.<String>builder()
+                .message("Thumbnail updated successfully")
+                .result(result)
+                .build();
     }
 
     // Cập nhật thông tin sản phẩm
     @PutMapping("/{productId}")
-    public ProductResponse updateProduct(
+    public ApiResponse<ProductResponse> updateProduct(
             @PathVariable String productId,
             @RequestBody ProductUpdateRequest request) {
         log.info("Updating product with ID: {}", productId);
-        return productService.updateProduct(productId, request);
+        ProductResponse productResponse = productService.updateProduct(productId, request);
+        return ApiResponse.<ProductResponse>builder()
+                .result(productResponse)
+                .build();
     }
 
     // Xóa sản phẩm theo ID
     @DeleteMapping("/{productId}")
-    public void deleteProduct(@PathVariable String productId) {
+    public ApiResponse<String> deleteProduct(@PathVariable String productId) {
         log.info("Deleting product with ID: {}", productId);
         productService.deleteProduct(productId);
+        return ApiResponse.<String>builder()
+                .message("Product deleted successfully")
+                .result("Product with ID " + productId + " has been deleted.")
+                .build();
     }
 
     // Lấy thông tin sản phẩm theo ID
     @GetMapping("/{productId}")
-    public ProductResponse getProductById(@PathVariable String productId) {
+    public ApiResponse<ProductResponse> getProductById(@PathVariable String productId) {
         log.info("Fetching product with ID: {}", productId);
-        return productService.getProductById(productId);
+        ProductResponse productResponse = productService.getProductById(productId);
+        return ApiResponse.<ProductResponse>builder()
+                .result(productResponse)
+                .build();
     }
 
     // Lấy danh sách sản phẩm với phân trang
     @GetMapping
-    public Page<ProductResponse> getProducts(
+    public ApiResponse<Page<ProductResponse>> getProducts(
             @ModelAttribute ProductFilterRequest filter,
             Pageable pageable) {
         log.info("Fetching products with filter: {}", filter);
-        return productService.searchProducts(filter, pageable);
+        var result = productService.searchProducts(filter, pageable);
+        return ApiResponse.<Page<ProductResponse>>builder()
+                .result(result)
+                .build();
     }
 }

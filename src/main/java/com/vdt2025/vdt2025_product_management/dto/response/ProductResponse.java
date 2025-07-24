@@ -23,5 +23,5 @@ public class ProductResponse {
     UserResponse createdBy;
     LocalDateTime createdAt;
     LocalDateTime updatedAt;
-    boolean isActive;
+    boolean active;
 }

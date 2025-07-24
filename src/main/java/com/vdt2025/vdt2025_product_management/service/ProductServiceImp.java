@@ -56,6 +56,7 @@ public class ProductServiceImp implements ProductService{
         var product = productMapper.toProduct(request);
         product.setImage_name(null);
         product.setCreatedBy(user);
+        product.setActive(true);
         product.setCategory(category);
         product = productRepository.save(product);
         log.info("Product {} created successfully", product.getName());
@@ -111,7 +112,7 @@ public class ProductServiceImp implements ProductService{
             throw new AppException(ErrorCode.UNAUTHORIZED);
         }
         // Cập nhật thông tin sản phẩm
-        productMapper.updateProduct(request, product);
+        productMapper.updateProduct(product, request);
         // Kiểm tra tên danh mục có tồn tại không
         if (request.getCategoryId() != null) {
             Category category = categoryRepository.findById(request.getCategoryId())

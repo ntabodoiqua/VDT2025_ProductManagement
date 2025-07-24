@@ -16,5 +16,5 @@ public class ProductUpdateRequest {
     BigDecimal price;
     int quantity;
     String categoryId;
-    Boolean isActive;
+    boolean active;
 }
