@@ -55,4 +55,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "created_by", nullable = false)
     User createdBy;
+
+    // Trạng thái sản phẩm, mặc định khi tạo là true (hoạt động)
+    @Column(nullable = false)
+    boolean isActive = true;
 }

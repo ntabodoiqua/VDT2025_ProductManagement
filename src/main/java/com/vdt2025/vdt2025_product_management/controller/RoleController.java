@@ -22,7 +22,7 @@ public class RoleController {
 
     // Tạo vai trò mới
     @PostMapping
-    public ApiResponse<RoleResponse> createRole(RoleRequest request) {
+    public ApiResponse<RoleResponse> createRole(@RequestBody RoleRequest request) {
         log.info("Creating role with name: {}", request.getName());
         var roleResponse = roleService.createRole(request);
         return ApiResponse.<RoleResponse>builder()

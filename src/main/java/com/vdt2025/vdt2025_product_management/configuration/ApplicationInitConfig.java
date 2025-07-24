@@ -54,6 +54,7 @@ public class ApplicationInitConfig {
                         .description("Danh mục mặc định cho các sản phẩm chưa được phân loại")
                         .createdBy(adminUser)
                         .build();
+                categoryRepository.save(defaultCategory);
             }
         };
     }

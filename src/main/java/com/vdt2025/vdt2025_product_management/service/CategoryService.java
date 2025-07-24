@@ -20,5 +20,5 @@ public interface CategoryService {
 
     void deleteCategory(String id);
 
-    public Page<CategoryResponse> searchCategories(CategoryFilterRequest filter, Pageable pageable)
+    Page<CategoryResponse> searchCategories(CategoryFilterRequest filter, Pageable pageable);
 }

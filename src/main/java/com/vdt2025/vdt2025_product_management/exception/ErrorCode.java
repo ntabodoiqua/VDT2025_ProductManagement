@@ -36,6 +36,9 @@ public enum ErrorCode {
     // Lỗi danh mục (15xx)
     CATEGORY_NOT_FOUND(1501, "Category not found", HttpStatus.NOT_FOUND),
     CATEGORY_EXISTED(1502, "Category already exists", HttpStatus.CONFLICT),
+    // Lỗi sản phẩm (16xx)
+    PRODUCT_NOT_FOUND(1601, "Product not found", HttpStatus.NOT_FOUND),
+    PRODUCT_EXISTED(1602, "Product already exists", HttpStatus.CONFLICT),
     // Lỗi khác (99xx)
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_KEY(9998, "Invalid key", HttpStatus.BAD_REQUEST),

@@ -56,7 +56,9 @@ public class CategoryServiceImp implements CategoryService{
         User currentUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         // Tạo danh mục mới
-        var category = categoryRepository.save(categoryMapper.toCategory(request));
+        var category = categoryMapper.toCategory(request);
+        category.setCreatedBy(currentUser);
+        category = categoryRepository.save(category);
         log.info("Category {} created successfully by user {}", category.getName(), currentUser.getUsername());
         // Trả về thông tin danh mục đã tạo
         return categoryMapper.toCategoryResponse(category);

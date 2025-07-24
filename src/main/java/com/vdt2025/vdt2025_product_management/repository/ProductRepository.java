@@ -11,4 +11,6 @@ public interface ProductRepository extends JpaRepository<Product, String>, JpaSp
     // Tìm kiếm các sản phẩm thuộc danh mục theo tên
     @Query(value = "SELECT * FROM product WHERE category_id = :categoryId", nativeQuery = true)
     List<Product> findAllByCategoryId(String categoryId);
+
+    boolean existsByName(String name);
 }
