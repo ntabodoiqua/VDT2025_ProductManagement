@@ -31,6 +31,11 @@ public enum ErrorCode {
     INVALID_IMAGE_TYPE(1303, "Invalid image type", HttpStatus.BAD_REQUEST),
     // Lỗi vai trò (14xx)
     ROLE_NOT_FOUND(1401, "Role not found", HttpStatus.NOT_FOUND),
+    ROLE_EXISTED(1402, "Role already exists", HttpStatus.CONFLICT),
+    ROLE_IN_USE(1403, "Role is in use by users", HttpStatus.CONFLICT),
+    // Lỗi danh mục (15xx)
+    CATEGORY_NOT_FOUND(1501, "Category not found", HttpStatus.NOT_FOUND),
+    CATEGORY_EXISTED(1502, "Category already exists", HttpStatus.CONFLICT),
     // Lỗi khác (99xx)
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized error", HttpStatus.INTERNAL_SERVER_ERROR),
     INVALID_KEY(9998, "Invalid key", HttpStatus.BAD_REQUEST),

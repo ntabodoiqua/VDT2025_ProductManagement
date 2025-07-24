@@ -1,8 +1,10 @@
 package com.vdt2025.vdt2025_product_management.configuration;
 
 import com.vdt2025.vdt2025_product_management.constant.PredefinedRole;
+import com.vdt2025.vdt2025_product_management.entity.Category;
 import com.vdt2025.vdt2025_product_management.entity.Role;
 import com.vdt2025.vdt2025_product_management.entity.User;
+import com.vdt2025.vdt2025_product_management.repository.CategoryRepository;
 import com.vdt2025.vdt2025_product_management.repository.RoleRepository;
 import com.vdt2025.vdt2025_product_management.repository.UserRepository;
 import lombok.AccessLevel;
@@ -24,7 +26,8 @@ public class ApplicationInitConfig {
 
     @Bean
     ApplicationRunner applicationRunner(UserRepository userRepository,
-                                        RoleRepository roleRepository) {
+                                        RoleRepository roleRepository,
+                                        CategoryRepository categoryRepository) {
         return args -> {
             if (userRepository.findByUsername("admin").isEmpty()){
                 Role adminRole = new Role();
@@ -40,6 +43,17 @@ public class ApplicationInitConfig {
                         .build();
                 userRepository.save(user);
                 log.warn("Admin user has been created with default password: admin, please change it");
+            }
+            // Tạo category mặc định nếu chưa có
+            User adminUser = userRepository.findByUsername("admin")
+                    .orElseThrow(() -> new RuntimeException("Admin user not found"));
+            String defaultCategoryName = "Chưa phân loại";
+            if (!categoryRepository.existsByName(defaultCategoryName)) {
+                Category defaultCategory = Category.builder()
+                        .name(defaultCategoryName)
+                        .description("Danh mục mặc định cho các sản phẩm chưa được phân loại")
+                        .createdBy(adminUser)
+                        .build();
             }
         };
     }
