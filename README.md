@@ -106,7 +106,7 @@ vdt2025_project_management/
 
 - **Java**: JDK 21 trở lên
 - **Maven**: 3.6.0 trở lên
-- **IDE**: IntelliJ IDEA / Eclipse / VS Code
+- **IDE**: IntelliJ IDEA
 
 ### Cơ Sở Dữ Liệu
 
@@ -117,8 +117,8 @@ vdt2025_project_management/
 ### Phần Mềm Hỗ Trợ
 
 - **Git**: Để clone repository
-- **Postman**: Để test API (tùy chọn)
-- **DBeaver/pgAdmin**: Để quản lý database (tùy chọn)
+- **Postman**: Để test API
+- **DBeaver/pgAdmin**: Để quản lý database
 
 ## Cài Đặt và Chạy
 
